@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <TextView
+        android:text="Coded by ViRb3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:gravity="right"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp" />
+    <RelativeLayout
+        android:id="@+id/layoutMAC"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp">
+        <EditText
+            android:inputType="textCapCharacters"
+            android:digits="0123456789ABCDEF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editMAC1"
+            android:text="FF"
+            android:textSize="35dp"
+            android:maxLength="2" />
+        <EditText
+            android:inputType="textCapCharacters"
+            android:digits="0123456789ABCDEF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/editMAC1"
+            android:id="@+id/editMAC2"
+            android:text="FF"
+            android:textSize="35dp"
+            android:maxLength="2" />
+        <EditText
+            android:inputType="textCapCharacters"
+            android:digits="0123456789ABCDEF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/editMAC2"
+            android:id="@+id/editMAC3"
+            android:text="FF"
+            android:textSize="35dp"
+            android:maxLength="2" />
+        <EditText
+            android:inputType="textCapCharacters"
+            android:digits="0123456789ABCDEF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/editMAC3"
+            android:id="@+id/editMAC4"
+            android:text="FF"
+            android:textSize="35dp"
+            android:maxLength="2" />
+        <EditText
+            android:inputType="textCapCharacters"
+            android:digits="0123456789ABCDEF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/editMAC4"
+            android:id="@+id/editMAC5"
+            android:text="FF"
+            android:textSize="35dp"
+            android:maxLength="2" />
+        <EditText
+            android:inputType="textCapCharacters"
+            android:digits="0123456789ABCDEF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/editMAC5"
+            android:id="@+id/editMAC6"
+            android:text="FF"
+            android:textSize="35dp"
+            android:maxLength="2" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/layoutButtons"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutMAC"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp">
+        <Button
+            android:text="Randomize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnRandomize" />
+        <Button
+            android:text="Change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/btnRandomize"
+            android:id="@+id/btnChange" />
+        <Button
+            android:text="Restore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/btnChange"
+            android:id="@+id/btnRestore" />
+    </RelativeLayout>
+    <TextView
+        android:text="TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT-TEXT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtLog"
+        android:scrollbars="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="bottom"
+        layout_gravity="bottom"
+        android:maxLines="10" />
+</RelativeLayout>
