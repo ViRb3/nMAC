@@ -1,23 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
-using Android.Drm;
-using Android.Net.Wifi;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using Android.Provider;
-using Android.Text.Method;
-using EU.Chainfire.Libsuperuser;
-using Java.Lang;
-using Environment = Android.OS.Environment;
 using static nMAC.Helpers;
 using static nMAC.MACFunctions;
 
@@ -43,7 +31,13 @@ namespace nMAC
             btnRestore.Click += BtnRestore_Click;
 
             InitializeLogger(this);
-            AssignPaths(this);
+            await AssignPaths(this);
+
+            if (MACFile == null) // device not supported
+            {
+                Log("Device not supported!");
+                return;
+            }
 
             Log("Checking SU availability...");
 
@@ -96,19 +90,10 @@ namespace nMAC
 
             string content = File.ReadAllText(LocalMACFile);
 
-            string searchString = "Intf0MacAddress=";
-            int searchLength = searchString.Length;
+            WriteMAC(ref content, newMAC);
+            File.WriteAllText(LocalMACFile, content);
 
-            string oldMAC = content.Substring(content.IndexOf(searchString) + searchLength, 12);
-
-            content = content.Replace(oldMAC, newMAC);
-
-            string tempPath = Path.GetDirectoryName(TempLocalMACFile);
-
-            Directory.CreateDirectory(tempPath);
-            File.WriteAllText(TempLocalMACFile, content);
-
-            await ReplaceMACFile(this, TempLocalMACFile);
+            await ReplaceMACFile(this, LocalMACFile);
 
             await ToggleAirplaneMode(this, false);
 
@@ -178,7 +163,13 @@ To be able to revert anything you do here, a backup of your current MAC binary f
             Log("Loading current MAC address...");
 
             await GetMACFile(this);
-            string MAC = ReadMAC();
+            string MAC = ReadMAC(this);
+
+            if (MAC == null) // device not supported
+            {
+                Log("Device not supported!");
+                return;
+            }
 
             SetMACViews(MAC);
 

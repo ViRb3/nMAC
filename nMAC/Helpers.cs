@@ -1,18 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
-using Android.Net.Wifi;
-using Android.OS;
-using Android.Provider;
-using Android.Runtime;
-using Android.Text;
-using Android.Views;
 using Android.Views.InputMethods;
-using Android.Widget;
 using EU.Chainfire.Libsuperuser;
 using Java.Lang;
 
