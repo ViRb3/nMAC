@@ -30,7 +30,7 @@ Please contact me if you want to make it work!");
             }
 
             LocalMACFile = Path.Combine(context.FilesDir.AbsolutePath, "mac.bin");
-            BackupMACFile = Path.Combine(Environment.ExternalStorageDirectory.AbsolutePath, ".nMAC", "mac_backup.bin");       
+            BackupMACFile = Path.Combine(Environment.ExternalStorageDirectory.AbsolutePath, ".nMAC", "wlan_mac.bin");       
         }
 
         private static async Task<string> FindMACLocation()
