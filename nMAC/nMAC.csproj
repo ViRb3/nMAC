@@ -73,10 +73,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceModel.cs" />
+    <Compile Include="Devices\Nexus5.cs" />
+    <Compile Include="Devices\Samsung.cs" />
     <Compile Include="MACFunctions.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Devices\Nexus5X.cs" />
     <Compile Include="ProgressDialogFragment.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

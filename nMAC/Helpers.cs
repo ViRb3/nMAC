@@ -15,13 +15,13 @@ namespace nMAC
 
         public static async Task ToggleAirplaneMode(Context context, bool state)
         {
-            IList<string> commands = new List<string>()
+            IList<string> commands = new List<string>
             {
                 $"settings put global airplane_mode_on {Convert.ToInt32(state)}",
                 $"am broadcast -a android.intent.action.AIRPLANE_MODE --ez state {Convert.ToInt32(state)}"
             };
 
-            await System.Threading.Tasks.Task.Run(() => Shell.SU.Run(commands));
+            await Task.Run(() => Shell.SU.Run(commands));
         }
 
         public static void ShowCriticalError(Context context, string message)

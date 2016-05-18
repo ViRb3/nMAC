@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Android.Content;
 using EU.Chainfire.Libsuperuser;
+using nMAC.Devices;
 using Environment = Android.OS.Environment;
 
 namespace nMAC
@@ -13,44 +14,47 @@ namespace nMAC
         public static string MACFile;
         public static string LocalMACFile;
         public static string BackupMACFile;
-        private static readonly Regex RegexPlainMAC = new Regex(@"^([0-9A-F]{2}[:]){5}([0-9A-F]{2})\n?$");
-        private static readonly Regex RegexN5XMAC = new Regex(@"^(Intf0MacAddress=(([0-9A-F]{2}){6}))\n(Intf1MacAddress=(([0-9A-F]{2}){6}))\n(Intf2MacAddress=(([0-9A-F]{2}){6}))\n(Intf3MacAddress=(([0-9A-F]{2}){6}))\n?$");
 
-        private static MACSyntax _MACSyntax = MACSyntax.Unknown;
+        public static DeviceModel Device;
 
         public static async Task AssignPaths(Context context)
         {
-            MACFile = await FindMACLocation();
+            DeviceModel device = await DetectDevice();
 
-            if (MACFile == null)
+            if (device == null)
             {
                 Helpers.ShowCriticalError(context, @"Sorry, this device not supported.
 Please contact me if you want to make it work!");
                 return;
             }
 
+            Device = device;
+            MACFile = device.Path;
             LocalMACFile = Path.Combine(context.FilesDir.AbsolutePath, "mac.bin");
             BackupMACFile = Path.Combine(Environment.ExternalStorageDirectory.AbsolutePath, ".nMAC", "wlan_mac.bin");       
         }
 
-        private static async Task<string> FindMACLocation()
+        private static async Task<DeviceModel> DetectDevice()
         {
-            string[] MACPaths =
+            List<DeviceModel> devices = new List<DeviceModel>()
             {
-                "/persist/wlan_mac.bin",
-                "/efs/wifi/.mac.info"
+                new Nexus5(),
+                new Nexus5X(),
+                new Samsung()
             };
 
             IList<string> result = null;
 
-            foreach (string path in MACPaths)
+            foreach (DeviceModel device in devices)
             {
+                string path = device.Path;
+
                 await Task.Run(() => result = Shell.SU.Run($"cat {path}"));
 
                 if (result == null || result.Count == 0 || string.IsNullOrWhiteSpace(result.ToString()))
                     continue;
 
-                return path;
+                return device;
             }
 
             return null;
@@ -68,72 +72,21 @@ Please contact me if you want to make it work!");
 
         public static string ReadMAC(Context context)
         {
-            string content = File.ReadAllText(LocalMACFile);
+            byte[] content = File.ReadAllBytes(LocalMACFile);
 
-            if (RegexPlainMAC.IsMatch(content))
+            if (!Device.CheckFile(content))
             {
-                _MACSyntax = MACSyntax.Plain;
-                return ReadPlainMAC(content);
-            }
-
-            if (RegexN5XMAC.IsMatch(content))
-            {
-                _MACSyntax = MACSyntax.N5X;
-                return ReadN5XMAC(content);
-            }
-
-            Helpers.ShowCriticalError(context, @"Sorry, this device not supported.
+                Helpers.ShowCriticalError(context, @"Sorry, this device not supported.
 Please contact me if you want to make it work!");
-            return null;
-        }
-
-        private static string ReadPlainMAC(string content)
-        {
-            return content.Replace(":", string.Empty);
-        }
-
-        private static string ReadN5XMAC(string content)
-        {
-            string searchString = "Intf0MacAddress=";
-            int searchLength = searchString.Length;
-
-            return content.Substring(content.IndexOf(searchString) + searchLength, 12);
-        }
-
-        public static void WriteMAC(ref string content, string MAC)
-        {
-            if (_MACSyntax == MACSyntax.Plain)
-            {
-                string formattedMAC = string.Empty;
-
-                int @break = 0;
-                for (int i = 0; i < MAC.Length;)
-                {
-                    if (@break < 2)
-                    {
-                        formattedMAC += MAC[i];
-                        @break++;
-                        i++;
-                    }
-                    else
-                    {
-                        @break = 0;
-                        formattedMAC += ":";
-                    }
-                }
-
-                content = formattedMAC;
-                return;
+                return null;
             }
 
-            if (_MACSyntax == MACSyntax.N5X)
-            {
-                string searchString = "Intf0MacAddress=";
-                int editIndex = content.IndexOf(searchString) + searchString.Length;
+            return Device.ExtractMACFromFile(content);
+        }
 
-                content = content.Remove(editIndex, 12);
-                content = content.Insert(editIndex, MAC);
-            }
+        public static void WriteMAC(ref byte[] content, string MAC)
+        {
+            Device.WriteMAC(ref content, MAC);
         }
 
         public static async Task BackupMACBinary()
@@ -147,12 +100,5 @@ Please contact me if you want to make it work!");
         {
             await Task.Run(() => Shell.SU.Run($"cat {source} > {MACFile}"));
         }
-    }
-
-    enum MACSyntax
-    {
-       Unknown,
-       N5X,
-       Plain
     }
 }

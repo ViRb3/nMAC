@@ -88,10 +88,10 @@ namespace nMAC
             Log("Changing MAC address...");
             await ToggleAirplaneMode(this, true);
 
-            string content = File.ReadAllText(LocalMACFile);
+            byte[] content = File.ReadAllBytes(LocalMACFile);
 
             WriteMAC(ref content, newMAC);
-            File.WriteAllText(LocalMACFile, content);
+            File.WriteAllBytes(LocalMACFile, content);
 
             await ReplaceMACFile(this, LocalMACFile);
 
@@ -182,17 +182,17 @@ To be able to revert anything you do here, a backup of your current MAC binary f
         {
             string[] MACArray = new string[6];
 
-            string temp = string.Empty;
+            string @byte = string.Empty;
 
             for (int i = 0, u = 0; i < MAC.Length; i++)
             {
-                temp += MAC[i];
-                if (temp.Length < 2)
+                @byte += MAC[i];
+                if (@byte.Length < 2)
                     continue;
                 else
                 {
-                    MACArray[u++] = temp;
-                    temp = string.Empty;
+                    MACArray[u++] = @byte;
+                    @byte = string.Empty;
                 }
             }
 
