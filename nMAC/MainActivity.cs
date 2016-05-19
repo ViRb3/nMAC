@@ -11,7 +11,7 @@ using static nMAC.MACFunctions;
 
 namespace nMAC
 {
-    [Activity(Label = "nMAC", MainLauncher = true, Icon = "@mipmap/ic_launcher", WindowSoftInputMode = SoftInput.AdjustPan, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "Nil MAC Changer", MainLauncher = true, Icon = "@mipmap/ic_launcher", WindowSoftInputMode = SoftInput.AdjustPan, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
         private readonly Random _random = new Random();
