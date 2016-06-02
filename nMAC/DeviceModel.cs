@@ -5,22 +5,22 @@ using System.Text.RegularExpressions;
 
 namespace nMAC
 {
-    public abstract class DeviceModel
+    internal abstract class DeviceModel
     {
-        public string Path { get; set; }
+        internal string Path { get; set; }
         internal Regex FileSyntax;
 
-        public virtual bool CheckFile(byte[] content)
+        internal virtual bool CheckFile(byte[] content)
         {
             return CheckFile(Encoding.UTF8.GetString(content));
         }
 
-        public virtual bool CheckFile(string content)
+        internal virtual bool CheckFile(string content)
         {
             throw new NotImplementedException();
         }
 
-        public virtual string ExtractMACFromFile(byte[] content)
+        internal virtual string ExtractMACFromFile(byte[] content)
         {
             return ExtractMACFromFile(Encoding.UTF8.GetString(content));
         }
@@ -30,7 +30,7 @@ namespace nMAC
             throw new NotImplementedException();
         }
 
-        public virtual void WriteMAC(ref byte[] content, string MAC)
+        internal virtual void WriteMAC(ref byte[] content, string MAC)
         {
             string contentString = Encoding.UTF8.GetString(content);
             WriteMAC(ref contentString, MAC);

@@ -4,7 +4,7 @@ using Android.OS;
 
 namespace nMAC
 {
-    public class ProgressDialogFragment : Android.App.DialogFragment
+    internal class ProgressDialogFragment : Android.App.DialogFragment
     {
         private static string _message, _title;
         private static ProgressDialog _progressDialog;
@@ -12,8 +12,7 @@ namespace nMAC
 
         private bool _cancelable;
 
-
-        public void Initialize(Context context, string message, string title, bool cancelable = false)
+        internal void Initialize(Context context, string message, string title, bool cancelable = false)
         {
             _context = context;
             _message = message;
@@ -31,8 +30,7 @@ namespace nMAC
             _progressDialog.SetCancelable(_cancelable);
             _progressDialog.SetCanceledOnTouchOutside(_cancelable);
             _progressDialog.Show();
-
-            return _progressDialog;
+return _progressDialog;
         }
 
         public override void Dismiss()
@@ -40,7 +38,7 @@ namespace nMAC
             _progressDialog.Dismiss();
         }
 
-        public void Show()
+        internal void Show()
         {
             this.Show(((Activity) _context).FragmentManager, string.Empty);
         }

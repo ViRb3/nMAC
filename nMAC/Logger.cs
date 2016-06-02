@@ -6,22 +6,22 @@ using Environment = System.Environment;
 
 namespace nMAC
 {
-    public class Logger
+    internal class Logger
     {
         private TextView _txtLog;
 
-        public Logger(Context context)
+        internal Logger(Context context)
         {
             _txtLog = ((Activity) context).FindViewById<TextView>(Resource.Id.txtLog);
             ClearLog();
             _txtLog.MovementMethod = new ScrollingMovementMethod();
         }
-        public void Log(string text)
+        internal void Log(string text)
         {
             _txtLog.Text += text + Environment.NewLine;
         }
 
-        public void ClearLog()
+        internal void ClearLog()
         {
             _txtLog.Text = string.Empty;
         }

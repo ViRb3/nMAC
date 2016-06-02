@@ -9,15 +9,15 @@ using Environment = Android.OS.Environment;
 
 namespace nMAC
 {
-    public static class MACFunctions
+    internal static class MACFunctions
     {
-        public static string MACFile;
-        public static string LocalMACFile;
-        public static string BackupMACFile;
+        internal static string MACFile;
+        internal static string LocalMACFile;
+        internal static string BackupMACFile;
 
-        public static DeviceModel Device;
+        internal static DeviceModel Device;
 
-        public static async Task AssignPaths(Context context)
+        internal static async Task AssignPaths(Context context)
         {
             DeviceModel device = await DetectDevice();
 
@@ -60,7 +60,7 @@ Please contact me if you want to make it work!");
             return null;
         }
 
-        public static async Task GetMACFile(Context context)
+        internal static async Task GetMACFile(Context context)
         {
             if (File.Exists(LocalMACFile))
                 File.Delete(LocalMACFile);
@@ -70,7 +70,7 @@ Please contact me if you want to make it work!");
             await Task.Run(() => Shell.SU.Run($"cat {MACFile} > {LocalMACFile}"));
         }
 
-        public static string ReadMAC(Context context)
+        internal static string ReadMAC(Context context)
         {
             byte[] content = File.ReadAllBytes(LocalMACFile);
 
@@ -84,19 +84,19 @@ Please contact me if you want to make it work!");
             return Device.ExtractMACFromFile(content);
         }
 
-        public static void WriteMAC(ref byte[] content, string MAC)
+        internal static void WriteMAC(ref byte[] content, string MAC)
         {
             Device.WriteMAC(ref content, MAC);
         }
 
-        public static async Task BackupMACBinary()
+        internal static async Task BackupMACBinary()
         {
             Directory.CreateDirectory(Path.GetDirectoryName(BackupMACFile));
 
             await Task.Run(() => Shell.SU.Run($"cat {MACFile} > {BackupMACFile}"));
         }
 
-        public static async Task ReplaceMACFile(Context context, string source)
+        internal static async Task ReplaceMACFile(Context context, string source)
         {
             await Task.Run(() => Shell.SU.Run($"cat {source} > {MACFile}"));
         }

@@ -4,7 +4,7 @@ namespace nMAC.Devices
 {
     class Nexus5X : DeviceModel
     {
-        public Nexus5X()
+        internal Nexus5X()
         {
             this.Path = "/persist/wlan_mac.bin";
             this.FileSyntax = new Regex(
@@ -12,7 +12,7 @@ namespace nMAC.Devices
         }
 
 
-        public override bool CheckFile(string content)
+        internal override bool CheckFile(string content)
         {
             if (this.FileSyntax.IsMatch(content))
                 return true;

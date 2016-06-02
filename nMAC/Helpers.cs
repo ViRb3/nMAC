@@ -9,11 +9,11 @@ using Java.Lang;
 
 namespace nMAC
 {
-    public static class Helpers
+    internal static class Helpers
     {
-        public static Logger Logger;
+        internal static Logger Logger;
 
-        public static async Task ToggleAirplaneMode(Context context, bool state)
+        internal static async Task ToggleAirplaneMode(Context context, bool state)
         {
             IList<string> commands = new List<string>
             {
@@ -24,7 +24,7 @@ namespace nMAC
             await Task.Run(() => Shell.SU.Run(commands));
         }
 
-        public static void ShowCriticalError(Context context, string message)
+        internal static void ShowCriticalError(Context context, string message)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.SetTitle("Error");
@@ -34,7 +34,7 @@ namespace nMAC
             builder.Show();
         }
 
-        public static void ShowMessage(Context context, string message, string title = "Error")
+        internal static void ShowMessage(Context context, string message, string title = "Error")
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.SetTitle(title);
@@ -44,22 +44,22 @@ namespace nMAC
             builder.Show();
         }
 
-        public static void InitializeLogger(Context context)
+        internal static void InitializeLogger(Context context)
         {
             Logger = new Logger(context);
         }
 
-        public static void Log()
+        internal static void Log()
         {
             Logger.Log(string.Empty);
         }
 
-        public static void Log(string text)
+        internal static void Log(string text)
         {
             Logger.Log(text);
         }
 
-        public static async Task<bool> CheckSUStrict(Context context)
+        internal static async Task<bool> CheckSUStrict(Context context)
         {
             bool isSU = false;
 
@@ -71,7 +71,7 @@ namespace nMAC
             return isSU;
         }
 
-        public static void ToggleKeyboard(Context context, bool state)
+        internal static void ToggleKeyboard(Context context, bool state)
         {
             InputMethodManager inputManager = (InputMethodManager)
                                   context.GetSystemService(Context.InputMethodService);
@@ -81,7 +81,7 @@ namespace nMAC
 
         private static ProgressDialogFragment _progressDialog = null;
 
-        public static bool ShowLoading(Context context, string message)
+        internal static bool ShowLoading(Context context, string message)
         {
             ((Activity) context).RunOnUiThread(() => {
                 _progressDialog = new ProgressDialogFragment();
@@ -92,7 +92,7 @@ namespace nMAC
             return true;
         }
 
-        public static bool DismissLoading()
+        internal static bool DismissLoading()
         {
             if (_progressDialog == null)
                 return false;
