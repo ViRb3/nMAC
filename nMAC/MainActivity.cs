@@ -20,30 +20,30 @@ namespace nMAC
         {
             base.OnCreate(bundle);
 
-            SetContentView(Resource.Layout.Main);
+            this.SetContentView(Resource.Layout.Main);
             ToggleViews(false);
 
-            Button btnRandomize = FindViewById<Button>(Resource.Id.btnRandomize);
+            Button btnRandomize = this.FindViewById<Button>(Resource.Id.btnRandomize);
             btnRandomize.Click += BtnRandomize_Click;
-            Button btnChange = FindViewById<Button>(Resource.Id.btnChange);
+            Button btnChange = this.FindViewById<Button>(Resource.Id.btnChange);
             btnChange.Click += BtnChange_Click;
-            Button btnRestore = FindViewById<Button>(Resource.Id.btnRestore);
+            Button btnRestore = this.FindViewById<Button>(Resource.Id.btnRestore);
             btnRestore.Click += BtnRestore_Click;
 
             InitializeLogger(this);
-            await AssignPaths(this);
-
-            if (MACFile == null) // device not supported
-            {
-                Log("Device not supported!");
-                return;
-            }
-
             Log("Checking SU availability...");
 
             if (!await CheckSUStrict(this))
             {
                 Log("Error confirming SU access!");
+                return;
+            }
+
+            await AssignPaths(this);
+
+            if (MACFile == null) // device not supported
+            {
+                Log("Device not supported!");
                 return;
             }
 
@@ -112,12 +112,12 @@ namespace nMAC
 
         private void ToggleViews(bool state)
         {
-            RelativeLayout layoutMAC = FindViewById<RelativeLayout>(Resource.Id.layoutMAC);
+            RelativeLayout layoutMAC = this.FindViewById<RelativeLayout>(Resource.Id.layoutMAC);
 
             for (int i = 0; i < layoutMAC.ChildCount; i++)
                 layoutMAC.GetChildAt(i).Enabled = state;
 
-            RelativeLayout layoutButtons = FindViewById<RelativeLayout>(Resource.Id.layoutButtons);
+            RelativeLayout layoutButtons = this.FindViewById<RelativeLayout>(Resource.Id.layoutButtons);
 
             for (int i = 0; i < layoutButtons.ChildCount; i++)
                 layoutButtons.GetChildAt(i).Enabled = state;
@@ -196,7 +196,7 @@ To be able to revert anything you do here, a backup of your current MAC binary f
                 }
             }
 
-            RelativeLayout layoutMAC = FindViewById<RelativeLayout>(Resource.Id.layoutMAC);
+            RelativeLayout layoutMAC = this.FindViewById<RelativeLayout>(Resource.Id.layoutMAC);
 
             for (int i = excludeFirst ? 1 : 0; i < layoutMAC.ChildCount; i++)
             {
@@ -213,7 +213,7 @@ To be able to revert anything you do here, a backup of your current MAC binary f
 
         private string GetMACFromViews()
         {
-            RelativeLayout layoutMAC = FindViewById<RelativeLayout>(Resource.Id.layoutMAC);
+            RelativeLayout layoutMAC = this.FindViewById<RelativeLayout>(Resource.Id.layoutMAC);
             StringWriter stringWriter = new StringWriter();
 
             for (int i = 0; i < layoutMAC.ChildCount; i++)

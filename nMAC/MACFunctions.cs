@@ -11,6 +11,8 @@ namespace nMAC
 {
     internal static class MACFunctions
     {
+        private const string UnsupportedDeviceMessage = @"Sorry, this device not supported.
+Please contact me if you want to make it work!";
         internal static string MACFile;
         internal static string LocalMACFile;
         internal static string BackupMACFile;
@@ -23,8 +25,7 @@ namespace nMAC
 
             if (device == null)
             {
-                Helpers.ShowCriticalError(context, @"Sorry, this device not supported.
-Please contact me if you want to make it work!");
+                Helpers.ShowCriticalError(context, UnsupportedDeviceMessage);
                 return;
             }
 
@@ -76,8 +77,7 @@ Please contact me if you want to make it work!");
 
             if (!Device.CheckFile(content))
             {
-                Helpers.ShowCriticalError(context, @"Sorry, this device not supported.
-Please contact me if you want to make it work!");
+                Helpers.ShowCriticalError(context, UnsupportedDeviceMessage);
                 return null;
             }
 

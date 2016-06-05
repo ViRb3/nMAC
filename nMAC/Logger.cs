@@ -8,7 +8,7 @@ namespace nMAC
 {
     internal class Logger
     {
-        private TextView _txtLog;
+        private readonly TextView _txtLog;
 
         internal Logger(Context context)
         {

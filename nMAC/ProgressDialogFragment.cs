@@ -4,7 +4,7 @@ using Android.OS;
 
 namespace nMAC
 {
-    internal class ProgressDialogFragment : Android.App.DialogFragment
+    internal class ProgressDialogFragment : DialogFragment
     {
         private static string _message, _title;
         private static ProgressDialog _progressDialog;
