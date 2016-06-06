@@ -12,7 +12,9 @@ namespace nMAC
     internal static class MACFunctions
     {
         private const string UnsupportedDeviceMessage = @"Sorry, this device not supported.
-Please contact me if you want to make it work!";
+Please follow the links on my GitHub project page if you want make it work!
+
+https://github.com/ViRb3/nMAC";
         internal static string MACFile;
         internal static string LocalMACFile;
         internal static string BackupMACFile;
