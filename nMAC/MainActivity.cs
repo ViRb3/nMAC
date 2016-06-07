@@ -89,6 +89,8 @@ namespace nMAC
             ShowLoading(this, "Please wait...");
 
             Log("Changing MAC address...");
+
+            bool disableAirplaneMode = !IsAirplaneModeEnabled(this);
             await ToggleAirplaneMode(this, true);
 
             byte[] content = File.ReadAllBytes(LocalMACFile);
@@ -98,7 +100,8 @@ namespace nMAC
 
             await ReplaceMACFile(this, LocalMACFile);
 
-            await ToggleAirplaneMode(this, false);
+            if (disableAirplaneMode)
+                await ToggleAirplaneMode(this, false);
 
             DismissLoading();
             Log("Done");
