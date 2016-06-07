@@ -59,11 +59,14 @@ namespace nMAC
             Log("Restoring MAC Address...");
             ShowLoading(this, "Please wait...");
 
+            bool disableAirplaneMode = !IsAirplaneModeEnabled(this);
+
             await ToggleAirplaneMode(this, true);
 
             await ReplaceMACFile(this, BackupMACFile);
 
-            await ToggleAirplaneMode(this, false);
+            if (disableAirplaneMode)
+                await ToggleAirplaneMode(this, false);
 
             DismissLoading();
             Log("Done");

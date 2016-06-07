@@ -11,7 +11,7 @@ namespace nMAC
 {
     internal static class MACFunctions
     {
-        private const string UnsupportedDeviceMessage = @"Sorry, this device not supported.
+        private const string UnsupportedDeviceMessage = @"Sorry, this device is not supported.
 Please follow the links on my GitHub project page if you want make it work!
 
 https://github.com/ViRb3/nMAC";
@@ -43,7 +43,8 @@ https://github.com/ViRb3/nMAC";
             {
                 new Nexus5(),
                 new Nexus5X(),
-                new Samsung()
+                new Samsung(),
+                new OnePlusOne() // must be after Nexus5X due to conflict
             };
 
             IList<string> result = null;

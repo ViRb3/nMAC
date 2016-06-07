@@ -8,7 +8,7 @@ namespace nMAC.Devices
         {
             this.Path = "/persist/wlan_mac.bin";
             this.FileSyntax = new Regex(
-                @"^(Intf0MacAddress=(([0-9A-F]{2}){6}))\n(Intf1MacAddress=(([0-9A-F]{2}){6}))\n(Intf2MacAddress=(([0-9A-F]{2}){6}))\n(Intf3MacAddress=(([0-9A-F]{2}){6}))\n?$");
+                @"^(Intf0MacAddress=(([0-9A-F]{2}){6}))\n+(Intf1MacAddress=(([0-9A-F]{2}){6}))\n+(Intf2MacAddress=(([0-9A-F]{2}){6}))\n+(Intf3MacAddress=(([0-9A-F]{2}){6}))\n*$");
         }
 
 

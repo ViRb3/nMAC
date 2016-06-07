@@ -8,7 +8,7 @@ namespace nMAC.Devices
         {
             this.Path = "/persist/WCNSS_qcom_cfg.ini";
             this.FileSyntax = new Regex(
-                @"(Intf0MacAddress=(([0-9A-F]{2}){6}))\n(Intf1MacAddress=(([0-9A-F]{2}){6}))\n(Intf2MacAddress=(([0-9A-F]{2}){6}))\n\n(Intf3MacAddress=(([0-9A-F]{2}){6}))\n?");
+                @"(Intf0MacAddress=(([0-9A-F]{2}){6}))\n+(Intf1MacAddress=(([0-9A-F]{2}){6}))\n+(Intf2MacAddress=(([0-9A-F]{2}){6}))\n+(Intf3MacAddress=(([0-9A-F]{2}){6}))\n*");
             /* this.HotspotSyntax = new Regex(
                 @"(gAPMacAddr=(([0-9A-F]{2}){6}))"); */
         }
@@ -38,7 +38,5 @@ namespace nMAC.Devices
             content = content.Remove(editIndex, 12);
             content = content.Insert(editIndex, MAC);
         }
-
-        //
     }
 }

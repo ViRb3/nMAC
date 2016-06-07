@@ -7,7 +7,7 @@ namespace nMAC.Devices
         internal Samsung()
         {
             this.Path = "/efs/wifi/.mac.info";
-            this.FileSyntax = new Regex(@"^([0-9A-F]{2}[:]){5}([0-9A-F]{2})\n?$");
+            this.FileSyntax = new Regex(@"^([0-9A-F]{2}[:]){5}([0-9A-F]{2})\n*$");
         }
 
         internal override bool CheckFile(string content)

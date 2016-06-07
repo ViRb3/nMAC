@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
+using Android.Provider;
 using Android.Views.InputMethods;
 using EU.Chainfire.Libsuperuser;
 using Java.Lang;
@@ -22,6 +23,11 @@ namespace nMAC
             };
 
             await Task.Run(() => Shell.SU.Run(commands));
+        }
+
+        internal static bool IsAirplaneModeEnabled(Context context)
+        {
+            return Convert.ToBoolean(Settings.System.GetInt(context.ContentResolver, Settings.Global.AirplaneModeOn));
         }
 
         internal static void ShowCriticalError(Context context, string message)
