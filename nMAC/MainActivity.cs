@@ -111,9 +111,9 @@ namespace nMAC
 
         private void BtnRandomize_Click(object sender, EventArgs e)
         {    
-            int MAC1 = _random.Next(0x111111, 0xffffff);
-            int MAC2 = _random.Next(0x111111, 0xffffff);
-            SetMACViewsForRandom(MAC1.ToString("X") + MAC2.ToString("X"));
+            int MAC1 = _random.Next(0x111111, 0xffffff); // 6/12
+            int MAC2 = _random.Next(0x111111, 0xffffff); // 12/12
+            SetMACViews(MAC1.ToString("X") + MAC2.ToString("X"), true);
         }
 
         private void ToggleViews(bool state)
@@ -204,17 +204,12 @@ To be able to revert anything you do here, a backup of your current MAC binary f
 
             RelativeLayout layoutMAC = this.FindViewById<RelativeLayout>(Resource.Id.layoutMAC);
 
-            for (int i = excludeFirst ? 1 : 0; i < layoutMAC.ChildCount; i++)
+            for (int i = excludeFirst ? 3 : 0; i < layoutMAC.ChildCount; i++)
             {
                 EditText editMAC = (EditText)layoutMAC.GetChildAt(i);
                 editMAC.Text = MACArray[i];
                 editMAC.Hint = MACArray[i];
             }
-        }
-
-        private void SetMACViewsForRandom(string MAC)
-        {
-            SetMACViews(MAC, true);
         }
 
         private string GetMACFromViews()

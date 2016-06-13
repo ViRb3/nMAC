@@ -64,9 +64,7 @@
     <DebugSymbols>False</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="libsuperuser">
-      <HintPath>..\..\libsuperuser\libsuperuser\bin\Release\libsuperuser.dll</HintPath>
-    </Reference>
+    <Reference Include="Java.Interop" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
@@ -76,6 +74,7 @@
     <Compile Include="DeviceModel.cs" />
     <Compile Include="Devices\Nexus5.cs" />
     <Compile Include="Devices\Samsung.cs" />
+    <Compile Include="Devices\YuYuphoria.cs" />
     <Compile Include="MACFunctions.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Logger.cs" />
@@ -102,7 +101,12 @@
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\libsuperuser\libsuperuser\libsuperuser.csproj">
+      <Project>{7f7c56a6-5a62-469c-b6f0-187cc8801cb0}</Project>
+      <Name>libsuperuser</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
   </ItemGroup>

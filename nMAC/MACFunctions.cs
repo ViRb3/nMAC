@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Android.Content;
 using EU.Chainfire.Libsuperuser;
@@ -39,12 +38,13 @@ https://github.com/ViRb3/nMAC";
 
         private static async Task<DeviceModel> DetectDevice()
         {
-            List<DeviceModel> devices = new List<DeviceModel>()
+            List<DeviceModel> devices = new List<DeviceModel>() // Priority, 1 is highest
             {
-                new Nexus5(),
-                new Nexus5X(),
-                new Samsung(),
-                new OnePlusOne() // must be after Nexus5X due to conflict
+                new Nexus5(), // 100
+                new Nexus5X(), //100
+                new Samsung(), // 100
+                new YuYuphoria(), //100
+                new OnePlusOne() // 1000 - conflict - N5X
             };
 
             IList<string> result = null;
@@ -84,7 +84,7 @@ https://github.com/ViRb3/nMAC";
                 return null;
             }
 
-            return Device.ExtractMACFromFile(content);
+            return Device.ExtractMACFromFile(content).ToUpper();
         }
 
         internal static void WriteMAC(ref byte[] content, string MAC)
