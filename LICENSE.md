@@ -5,11 +5,7 @@ Copyright (C) 2016-2017 ViRb3 (virb3e@gmail.com)
 "Personal license"
 
 1. You can read the code of this project to understand how it works.
-2. You can re-write or copy code from this project only if:
-      a. it is being used for other open-source projects
-      b. they permit code usage in the same way as this license
-      OR
-      they permit code usage further than what is included in this license
+2. You can re-write or copy code from this project only if it is being used for free open-source non-commercial projects that permit code usage as much or more than this license.
 3. I can not be held liable for anything that this project is used for or any damage it causes.
 4. There is no warranty of any kind for this project.
 4. If this project or any portions of its code are used, proper credits and a copy of this license must be included.
