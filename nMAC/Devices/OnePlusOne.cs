@@ -4,8 +4,9 @@ namespace nMAC.Devices
 {
     class OnePlusOne : DeviceModel
     {
-        internal OnePlusOne()
+        public OnePlusOne()
         {
+            this.Priority = 1;
             this.Path = "/persist/WCNSS_qcom_cfg.ini";
             this.FileSyntax = new Regex(
                 @"(Intf0MacAddress=(([0-9A-F]{2}){6}))\n+(Intf1MacAddress=(([0-9A-F]{2}){6}))\n+(Intf2MacAddress=(([0-9A-F]{2}){6}))\n+(Intf3MacAddress=(([0-9A-F]{2}){6}))\n*");

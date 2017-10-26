@@ -7,6 +7,7 @@ namespace nMAC
 {
     internal abstract class DeviceModel
     {
+        internal int Priority = 100;
         internal string Path { get; set; }
         internal Regex FileSyntax;
 

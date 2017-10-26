@@ -4,7 +4,7 @@ namespace nMAC.Devices
 {
     class YuYuphoria : DeviceModel
     {
-        internal YuYuphoria()
+        public YuYuphoria()
         {
             this.Path = "/sys/devices/soc.0/a000000.qcom,wcnss-wlan/wcnss_mac_addr";
             this.FileSyntax = new Regex(@"^([0-9a-f]{2}[:]){5}([0-9a-f]{2})\n*$");

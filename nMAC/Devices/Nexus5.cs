@@ -4,7 +4,7 @@ namespace nMAC.Devices
 {
     class Nexus5 : DeviceModel
     {
-        internal Nexus5()
+        public Nexus5()
         {
             this.Path = "/persist/wifi/.macaddr";
         }

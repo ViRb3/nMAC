@@ -4,7 +4,7 @@ namespace nMAC.Devices
 {
     class WileyfoxSpark : DeviceModel
     {
-        internal WileyfoxSpark()
+        public WileyfoxSpark()
         {
             this.Path = "/nvdata/APCFG/APRDEB/WIFI";
         }

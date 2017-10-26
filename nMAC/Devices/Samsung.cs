@@ -4,7 +4,7 @@ namespace nMAC.Devices
 {
     class Samsung : DeviceModel
     {
-        internal Samsung()
+        public Samsung()
         {
             this.Path = "/efs/wifi/.mac.info";
             this.FileSyntax = new Regex(@"^([0-9A-F]{2}[:]){5}([0-9A-F]{2})\n*$");

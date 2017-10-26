@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using System.Reflection;
 using Android.Content;
 using EU.Chainfire.Libsuperuser;
 using nMAC.Devices;
 using Environment = Android.OS.Environment;
+using System.Linq;
+using System;
 
 namespace nMAC
 {
@@ -37,14 +40,13 @@ https://github.com/ViRb3/nMAC";
 
         private static async Task<DeviceModel> DetectDevice()
         {
-            List<DeviceModel> devices = new List<DeviceModel>() // Order matters
-            {
-                new Nexus5(), // 100
-                new Nexus5X(), // 100
-                new Samsung(), // 100
-                new YuYuphoria(), // 100
-                new OnePlusOne() // 1000 - conflict - N5X
-            };
+            List<Type> deviceTypes = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace == typeof(Nexus5X).Namespace).ToList();
+            List<DeviceModel> devices = new List<DeviceModel>();
+
+            foreach(Type deviceType in deviceTypes)
+                devices.Add((DeviceModel)Activator.CreateInstance(deviceType));
+
+            devices = devices.OrderByDescending(d => d.Priority).ToList(); // order matters
 
             IList<string> result = null;
 
