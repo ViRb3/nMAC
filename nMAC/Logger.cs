@@ -16,6 +16,7 @@ namespace nMAC
             ClearLog();
             _txtLog.MovementMethod = new ScrollingMovementMethod();
         }
+
         internal void Log(string text)
         {
             _txtLog.Text += text + Environment.NewLine;

@@ -11,7 +11,7 @@ namespace nMAC
     internal static class MACFunctions
     {
         private const string UnsupportedDeviceMessage = @"Sorry, this device is not supported.
-Please follow the links on my GitHub project page if you want make it work!
+Please follow the resources on my GitHub project page if you wish to make it work!
 
 https://github.com/ViRb3/nMAC";
         internal static string MACFile;
@@ -23,7 +23,6 @@ https://github.com/ViRb3/nMAC";
         internal static async Task AssignPaths(Context context)
         {
             DeviceModel device = await DetectDevice();
-
             if (device == null)
             {
                 Helpers.ShowCriticalError(context, UnsupportedDeviceMessage);
@@ -33,17 +32,17 @@ https://github.com/ViRb3/nMAC";
             Device = device;
             MACFile = device.Path;
             LocalMACFile = Path.Combine(context.FilesDir.AbsolutePath, "mac.bin");
-            BackupMACFile = Path.Combine(Environment.ExternalStorageDirectory.AbsolutePath, ".nMAC", "wlan_mac.bin");       
+            BackupMACFile = Path.Combine(Environment.ExternalStorageDirectory.AbsolutePath, ".nMAC", "wlan_mac.bin");
         }
 
         private static async Task<DeviceModel> DetectDevice()
         {
-            List<DeviceModel> devices = new List<DeviceModel>() // Priority, 1 is highest
+            List<DeviceModel> devices = new List<DeviceModel>() // Order matters
             {
                 new Nexus5(), // 100
-                new Nexus5X(), //100
+                new Nexus5X(), // 100
                 new Samsung(), // 100
-                new YuYuphoria(), //100
+                new YuYuphoria(), // 100
                 new OnePlusOne() // 1000 - conflict - N5X
             };
 
@@ -52,7 +51,6 @@ https://github.com/ViRb3/nMAC";
             foreach (DeviceModel device in devices)
             {
                 string path = device.Path;
-
                 await Task.Run(() => result = Shell.SU.Run($"cat {path}"));
 
                 if (result == null || result.Count == 0 || string.IsNullOrWhiteSpace(result.ToString()))

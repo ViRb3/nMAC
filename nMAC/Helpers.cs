@@ -68,7 +68,6 @@ namespace nMAC
         internal static async Task<bool> CheckSUStrict(Context context)
         {
             bool isSU = false;
-
             await Task.Run(() => isSU = Shell.SU.Available());
 
             if (!isSU)
