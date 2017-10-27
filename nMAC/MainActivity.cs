@@ -191,6 +191,7 @@ To be able to revert anything you do here, a backup of your current MAC binary f
                 {
                     MACArray[u++] = @byte;
                     @byte = string.Empty;
+                    i++;
                 }
             }
 
