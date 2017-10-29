@@ -85,6 +85,8 @@ namespace nMAC
 
             Log("Changing MAC address...");
 
+            Java.Lang.Runtime.GetRuntime().Exec(new string[] { "su", "-c", "setprop net.hostname " + newMAC });
+
             bool airplaneModeEnabled = IsAirplaneModeEnabled(this);
             await ToggleAirplaneMode(this, true);
 
