@@ -22,7 +22,7 @@ namespace nMAC.Devices
             byte[] MAC = new byte[6];
             Array.Copy(content, 4, MAC, 0, 6);
 
-            return BitConverter.ToString(MAC);
+            return BitConverter.ToString(MAC).Replace("-", string.Empty); // BitConverter result separated by '-'
         }
 
         internal override void WriteMAC(ref byte[] content, string MAC)

@@ -6,6 +6,7 @@ using Android.Content.PM;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using EU.Chainfire.Libsuperuser;
 using static nMAC.Helpers;
 using static nMAC.MACFunctions;
 
@@ -94,6 +95,8 @@ namespace nMAC
             File.WriteAllBytes(LocalMACFile, content);
 
             await ReplaceMACFile(this, LocalMACFile);
+
+            Shell.SU.Run($"setprop net.hostname {newMAC}");
 
             if (!airplaneModeEnabled)
                 await ToggleAirplaneMode(this, false);
