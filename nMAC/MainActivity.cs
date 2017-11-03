@@ -3,16 +3,17 @@ using System.IO;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Android.OS;
 using EU.Chainfire.Libsuperuser;
-using static nMAC.Helpers;
-using static nMAC.MACFunctions;
+using static nMAC.Utils.General;
+using static nMAC.Utils.MAC;
 
 namespace nMAC
 {
-    [Activity(Label = "Nil MAC Changer", MainLauncher = true, Icon = "@mipmap/ic_launcher", WindowSoftInputMode = SoftInput.AdjustPan, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "Nil MAC Changer", MainLauncher = true, Icon = "@mipmap/ic_launcher", WindowSoftInputMode = SoftInput.AdjustPan,
+        ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
         private readonly Random _random = new Random();
@@ -90,13 +91,11 @@ namespace nMAC
             await ToggleAirplaneMode(this, true);
 
             byte[] content = File.ReadAllBytes(LocalMACFile);
-
             WriteMAC(ref content, newMAC);
             File.WriteAllBytes(LocalMACFile, content);
-
             await ReplaceMACFile(this, LocalMACFile);
 
-            Shell.SU.Run($"setprop net.hostname {newMAC}");
+            SetHostname(newMAC);
 
             if (!airplaneModeEnabled)
                 await ToggleAirplaneMode(this, false);
@@ -105,6 +104,11 @@ namespace nMAC
             Log("Done");
             Log();
             ToggleViews(true);
+        }
+
+        private static void SetHostname(string hostname)
+        {
+            Shell.SU.Run($"setprop net.hostname {hostname}");
         }
 
         private void BtnRandomize_Click(object sender, EventArgs e)
@@ -201,7 +205,7 @@ To be able to revert anything you do here, a backup of your current MAC binary f
 
             for (int i = excludeFirst ? 3 : 0; i < layoutMAC.ChildCount; i++)
             {
-                EditText editMAC = (EditText)layoutMAC.GetChildAt(i);
+                EditText editMAC = (EditText) layoutMAC.GetChildAt(i);
                 editMAC.Text = MACArray[i];
                 editMAC.Hint = MACArray[i];
             }
@@ -225,4 +229,3 @@ To be able to revert anything you do here, a backup of your current MAC binary f
         }
     }
 }
-

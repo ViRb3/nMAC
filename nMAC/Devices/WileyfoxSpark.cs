@@ -11,7 +11,7 @@ namespace nMAC.Devices
 
         internal override bool CheckFile(byte[] content)
         {
-            if(content.Length != 0x202)
+            if (content.Length != 0x202)
                 return false;
 
             return true;

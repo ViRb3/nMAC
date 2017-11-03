@@ -1,22 +1,23 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
+using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Android.Content;
 using EU.Chainfire.Libsuperuser;
 using nMAC.Devices;
 using Environment = Android.OS.Environment;
-using System.Linq;
-using System;
 
-namespace nMAC
+namespace nMAC.Utils
 {
-    internal static class MACFunctions
+    internal static class MAC
     {
         private const string UnsupportedDeviceMessage = @"Sorry, this device is not supported.
 Please follow the resources on my GitHub project page if you wish to make it work!
 
 https://github.com/ViRb3/nMAC";
+
         internal static string MACFile;
         internal static string LocalMACFile;
         internal static string BackupMACFile;
@@ -28,7 +29,7 @@ https://github.com/ViRb3/nMAC";
             DeviceModel device = await DetectDevice();
             if (device == null)
             {
-                Helpers.ShowCriticalError(context, UnsupportedDeviceMessage);
+                nMAC.Utils.General.ShowCriticalError(context, UnsupportedDeviceMessage);
                 return;
             }
 
@@ -40,11 +41,12 @@ https://github.com/ViRb3/nMAC";
 
         private static async Task<DeviceModel> DetectDevice()
         {
-            List<Type> deviceTypes = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace == typeof(Nexus5X).Namespace).ToList();
+            List<Type> deviceTypes = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(t => t.Namespace == typeof(Nexus5X).Namespace).ToList();
             List<DeviceModel> devices = new List<DeviceModel>();
 
-            foreach(Type deviceType in deviceTypes)
-                devices.Add((DeviceModel)Activator.CreateInstance(deviceType));
+            foreach (Type deviceType in deviceTypes)
+                devices.Add((DeviceModel) Activator.CreateInstance(deviceType));
 
             devices = devices.OrderByDescending(d => d.Priority).ToList(); // order matters
 
@@ -80,7 +82,7 @@ https://github.com/ViRb3/nMAC";
 
             if (!Device.CheckFile(content))
             {
-                Helpers.ShowCriticalError(context, UnsupportedDeviceMessage);
+                nMAC.Utils.General.ShowCriticalError(context, UnsupportedDeviceMessage);
                 return null;
             }
 

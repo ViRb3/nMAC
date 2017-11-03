@@ -30,7 +30,7 @@ namespace nMAC
             _progressDialog.SetCancelable(_cancelable);
             _progressDialog.SetCanceledOnTouchOutside(_cancelable);
             _progressDialog.Show();
-return _progressDialog;
+            return _progressDialog;
         }
 
         public override void Dismiss()
